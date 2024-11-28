@@ -1,0 +1,7 @@
+{
+    "prompt_tokens": 48,
+    "completion_tokens": 23,
+    "total_tokens": 71,
+    "total_cost": 0.00282,
+    "model_name": "gpt-4"
+}

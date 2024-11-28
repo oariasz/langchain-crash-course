@@ -5,16 +5,17 @@
 
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from mylib.openai_tokens import extract_tokens_and_cost
+from mylib.openai_tokens import extract_tokens_and_cost, print_token_usage, DEFAULT_MODEL
+from mylib.myutils import clear_screen
 
 # Load environment variables from .env
 load_dotenv()
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4")
+model = ChatOpenAI(model=DEFAULT_MODEL)
 
 # Example Usage
-prompt = "What is 81 divided by 9?"
+prompt = "What is 81 divided by 9? Give me only the number"
 result = model.invoke(prompt)
 
 
@@ -22,15 +23,11 @@ result = model.invoke(prompt)
 # Extract token usage and cost
 info = extract_tokens_and_cost(result)
 
+clear_screen()
 # Display results
 print(f"Response Content: {result.content}")
 print('\n\n')
 
-print('result = ')
-print(type(result))
-print(result)
-
-print(f"Prompt Tokens:     {info['prompt_tokens']}")
-print(f"Completion Tokens: {info['completion_tokens']}")
-print(f"Total Tokens:      {info['total_tokens']}")
-print(f"Total Cost (USD): ${info['total_cost']:.6f}")
+print_token_usage(result, DEFAULT_MODEL)
+print('\n\n')
+print_token_usage(result, DEFAULT_MODEL, saved_totals=True)
