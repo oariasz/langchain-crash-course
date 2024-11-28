@@ -157,3 +157,9 @@ def print_token_usage(result, model_name=DEFAULT_MODEL, saved_totals=False):
     print(f"{'Completion Tokens:':<20} {usage_data['completion_tokens']:>10,}")
     print(f"{'Total Tokens:':<20} {usage_data['total_tokens']:>10,}")
     print(f"{'Total Cost ($):':<20} {usage_data['total_cost']:>10,.4f}")
+    
+    
+def print_all_token_usage(result,model_name=DEFAULT_MODEL):
+    print_token_usage(result, model_name=model_name, saved_totals=False)
+    print('')
+    print_token_usage(result, model_name=model_name, saved_totals=True)

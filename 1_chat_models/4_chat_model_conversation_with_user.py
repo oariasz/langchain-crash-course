@@ -1,12 +1,17 @@
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from mylib.openai_tokens import extract_tokens_and_cost, print_token_usage, DEFAULT_MODEL, print_all_token_usage
+from mylib.myutils import clear_screen
+from pprint import pprint
+
+clear_screen()
 
 # Load environment variables from .env
 load_dotenv()
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+model = ChatOpenAI(model=DEFAULT_MODEL)
 
 
 chat_history = []  # Use a list to store messages
@@ -26,9 +31,10 @@ while True:
     result = model.invoke(chat_history)
     response = result.content
     chat_history.append(AIMessage(content=response))  # Add AI message
-
-    print(f"AI: {response}")
+    pprint(f"AI: {response}")
+    # print_all_token_usage(result=result)
 
 
 print("---- Message History ----")
 print(chat_history)
+
