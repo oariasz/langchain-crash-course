@@ -1,25 +1,28 @@
 from dotenv import load_dotenv
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from mylib.openai_tokens import extract_tokens_and_cost, print_token_usage, DEFAULT_MODEL
+from mylib.myutils import clear_screen
 from langchain_openai import ChatOpenAI
 
 # Load environment variables from .env
 load_dotenv()
 
 # Create a ChatOpenAI model
-model = ChatOpenAI(model="gpt-4o")
+model = ChatOpenAI(model=DEFAULT_MODEL)
 
 # SystemMessage:
 #   Message for priming AI behavior, usually passed in as the first of a sequenc of input messages.
 # HumanMessagse:
 #   Message from a human to the AI model.
 messages = [
-    SystemMessage(content="Solve the following math problems"),
+    SystemMessage(content="Solve the following math problems. Show only the number in the answer"),
     HumanMessage(content="What is 81 divided by 9?"),
 ]
 
 # Invoke the model with messages
 result = model.invoke(messages)
 print(f"Answer from AI: {result.content}")
+
 
 
 # AIMessage:
@@ -34,3 +37,8 @@ messages = [
 # Invoke the model with messages
 result = model.invoke(messages)
 print(f"Answer from AI: {result.content}")
+
+print('')
+print('')
+print_token_usage(result)
+print_token_usage(result, saved_totals=True)

@@ -8,6 +8,8 @@ from langchain_openai import ChatOpenAI
 from mylib.openai_tokens import extract_tokens_and_cost, print_token_usage, DEFAULT_MODEL
 from mylib.myutils import clear_screen
 
+clear_screen()
+
 # Load environment variables from .env
 load_dotenv()
 
@@ -23,7 +25,6 @@ result = model.invoke(prompt)
 # Extract token usage and cost
 info = extract_tokens_and_cost(result)
 
-clear_screen()
 # Display results
 print(f"Response Content: {result.content}")
 print('\n\n')
